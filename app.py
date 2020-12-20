@@ -10,30 +10,20 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from fsm import TocMachine
 from utils import send_text_message
 
+
+#test
+from config import set_machine
+from utils import send_fsm_graph
+import json
 load_dotenv()
 
-
-machine = TocMachine(
-    states=["user", "state1", "state2"],
-    transitions=[
-        {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
-        },
-        {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
-        },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
-    ],
-    initial="user",
-    auto_transitions=False,
-    show_conditions=True,
-)
+int_machine = set_machine()
+machine = TocMachine(states= int_machine.state(),
+            transitions=int_machine.transition(),
+            initial=int_machine.initial(),
+            auto_transitions=int_machine.auto_transitions(),
+            show_conditions=int_machine.show_conditions(),
+            )
 
 app = Flask(__name__, static_url_path="")
 
@@ -51,6 +41,40 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
+@app.route('/', methods=["POST"])
+def root():
+    signature = request.headers["X-Line-Signature"]
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    # parse webhook body
+    try:
+        events = parser.parse(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+
+
+    print("all")
+    print(request)
+    print("headers")
+    print(request.headers)
+    print("get_data")
+    print(request.get_data(as_text=True))
+    print("all data")
+    print(request.data)
+
+    print("events")
+    for event in events:
+        print(event)
+        # event_handle()
+        file = open("text.txt", "w")
+        file.write(event.message.text)
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text=event.message.text)
+        )
+
+    return "OK"
 
 @app.route("/callback", methods=["POST"])
 def callback():
@@ -109,9 +133,15 @@ def webhook_handler():
     return "OK"
 
 
-@app.route("/show-fsm", methods=["GET"])
+@app.route("/show-fsm", methods=["POST", "GET"])
 def show_fsm():
+    webhook = json.loads(request.data.decode("utf-8"))
+
+
+    app.logger.info("show fsm")
     machine.get_graph().draw("fsm.png", prog="dot", format="png")
+    print(webhook["events"][0]["replyToken"])
+    send_fsm_graph(webhook["events"][0]["replyToken"])
     return send_file("fsm.png", mimetype="image/png")
 
 
