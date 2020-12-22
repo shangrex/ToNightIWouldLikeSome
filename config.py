@@ -3,7 +3,7 @@ class set_machine():
         pass
 
     def state(self):
-        return ["initial", "save_text", "load_text", "show_image"]
+        return ["initial", "save_text", "load_text", "show_image", "dinner", "sticker"]
     
     def transition(self):
         return [
@@ -15,6 +15,12 @@ class set_machine():
         },
         {
             "trigger": "advance",
+            "source": "save_text",
+            "dest": "initial",
+            "conditions": "is_going_to_initial_from_save_text",
+        },
+        {
+            "trigger": "advance",
             "source": "initial",
             "dest": "load_text",
             "conditions": "is_going_to_load_text",
@@ -22,10 +28,34 @@ class set_machine():
         {
             "trigger": "advance",
             "source": "initial",
+            "dest": "dinner",
+            "conditions": "is_going_to_dinner",
+        },
+        {
+            "trigger": "advance",
+            "source": "initial",
             "dest": "show_image",
             "conditions": "is_going_to_show_image",
         },
-        {"trigger": "go_back", "source": ["save_text", "load_text", "show_image"], "dest": "initial"},
+        {
+            "trigger": "advance",
+            "source": "dinner",
+            "dest": "initial",
+            "conditions": "is_going_to_initial_from_dinner",
+        },
+        {
+            "trigger": "advance",
+            "source": "initial",
+            "dest": "sticker",
+            "conditions": "is_going_to_sticker",
+        },
+        {
+            "trigger": "advance",
+            "source": "sticker",
+            "dest": "initial",
+            "conditions": "is_going_to_initial_from_sticker",
+        },
+        {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker"], "dest": "initial"},
         ]
     
     def initial(self):

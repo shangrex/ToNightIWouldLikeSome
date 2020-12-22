@@ -55,25 +55,36 @@ def root():
         abort(400)
 
 
-    print("all")
-    print(request)
-    print("headers")
-    print(request.headers)
-    print("get_data")
-    print(request.get_data(as_text=True))
-    print("all data")
-    print(request.data)
+    # print("all")
+    # print(request)
+    # print("headers")
+    # print(request.headers)
+    # print("get_data")
+    # print(request.get_data(as_text=True))
+    # print("all data")
+    # print(request.data)
 
-    print("events")
+    # print("events")
+    # for event in events:
+    #     # print(event)
+    #     # event_handle()
+    #     file = open("text.txt", "w")
+    #     file.write(event.message.text)
+    #     line_bot_api.reply_message(
+    #         event.reply_token, TextSendMessage(text=event.message.text)
+    #     )
     for event in events:
-        print(event)
-        # event_handle()
-        file = open("text.txt", "w")
-        file.write(event.message.text)
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text)
-        )
-
+            if not isinstance(event, MessageEvent):
+                continue
+            if not isinstance(event.message, TextMessage):
+                continue
+            if not isinstance(event.message.text, str):
+                continue
+            print(f"\nFSM STATE: {machine.state}")
+            print(f"REQUEST BODY: \n{body}")
+            response = machine.advance(event)
+            if response == False:
+                send_text_message(event.reply_token, "Not Entering any State")
     return "OK"
 
 @app.route("/callback", methods=["POST"])
@@ -138,10 +149,11 @@ def show_fsm():
     webhook = json.loads(request.data.decode("utf-8"))
 
 
-    app.logger.info("show fsm")
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    print(webhook["events"][0]["replyToken"])
-    send_fsm_graph(webhook["events"][0]["replyToken"])
+    # app.logger.info("show fsm")
+    # machine.get_graph().draw("fsm.png", prog="dot", format="png")
+    # print(webhook["events"][0]["replyToken"])
+    # send_fsm_graph(webhook["events"][0]["replyToken"])
+    
     return send_file("fsm.png", mimetype="image/png")
 
 
