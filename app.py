@@ -137,11 +137,11 @@ def webhook_handler():
 def show_fsm(user_id):
     path = os.getcwd()
     app.logger.info(domain_url+"show-fsm/"+user_id)
-    machine.get_graph().draw(path+"/fsm.jpg", prog="dot", format="jpg")
+    machine.get_graph().draw(path+"/fsm.png", prog="dot", format="png")
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])
     
-    return send_file(path+"/fsm.jpg", mimetype="image/jpg")
+    return send_file(path+"/fsm.png", mimetype="image/png")
 
 
 if __name__ == "__main__":
