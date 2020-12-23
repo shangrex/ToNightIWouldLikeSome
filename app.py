@@ -131,7 +131,7 @@ def webhook_handler():
 @app.route("/show-fsm", methods=["POST", "GET"])
 def show_fsm():
     webhook = json.loads(request.data.decode("utf-8"))
-
+    #
 
     # app.logger.info("show fsm")
     # machine.get_graph().draw("fsm.png", prog="dot", format="png")

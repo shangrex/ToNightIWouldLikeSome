@@ -65,3 +65,8 @@ class set_machine():
         return False
     def show_conditions(self):
         return True
+
+
+def help_message():
+    text = ""
+    return text
