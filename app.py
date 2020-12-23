@@ -56,24 +56,6 @@ def root():
         abort(400)
 
 
-    # print("all")
-    # print(request)
-    # print("headers")
-    # print(request.headers)
-    # print("get_data")
-    # print(request.get_data(as_text=True))
-    # print("all data")
-    # print(request.data)
-
-    # print("events")
-    # for event in events:
-    #     # print(event)
-    #     # event_handle()
-    #     file = open("text.txt", "w")
-    #     file.write(event.message.text)
-    #     line_bot_api.reply_message(
-    #         event.reply_token, TextSendMessage(text=event.message.text)
-    #     )
     for event in events:
             if not isinstance(event, MessageEvent):
                 continue
@@ -86,6 +68,7 @@ def root():
             response = machine.advance(event)
             if response == False:
                 send_text_message(event.reply_token, "Not Entering any State")
+    app.logger.info("hello world")
     return "OK"
 
 @app.route("/callback", methods=["POST"])
