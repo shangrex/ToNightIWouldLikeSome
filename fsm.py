@@ -205,7 +205,7 @@ class TocMachine(GraphMachine):
     def on_enter_show_image(self, event):
         print("I'm entering show image")
 
-        machine.get_graph().draw("fsm.png", prog="dot", format="png")
+        # machine.get_graph().draw("fsm.png", prog="dot", format="png")
         reply_token = event.reply_token
         send_fsm_graph(reply_token)
         # send_file("fsm.png", mimetype="image/png")
