@@ -11,7 +11,7 @@ load_dotenv()
 google_key = os.getenv("GOOGLE_KEY", None)
 gmaps = googlemaps.Client(key=google_key)
 
-
+print(os.getcwd())
 
 # g = gmaps.geolocate()
 # print(g)
@@ -37,8 +37,8 @@ gmaps = googlemaps.Client(key=google_key)
 # print(longitude)
 
 # Geocoding an address
-x = gmaps.places_autocomplete('701台南市東區大學路1號')
-print(x)
+# x = gmaps.places_autocomplete('701台南市東區大學路1號')
+# print(x)
 # geocode_result = gmaps.geocode('701台南市東區大學路1號')
 
 # # count = 0
