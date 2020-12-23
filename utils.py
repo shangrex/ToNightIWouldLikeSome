@@ -30,7 +30,6 @@ def send_image_url(reply_token, img_url):
     try:
         line_bot_api = LineBotApi(channel_access_token)
         img_url += reply_token
-        print(img_url)
         # for demo, hard coded image url, line api only support image over https
         line_bot_api.reply_message(reply_token, ImageSendMessage(original_content_url=img_url, preview_image_url=img_url))
     except LineBotApiError as e:

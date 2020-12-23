@@ -67,6 +67,7 @@ def root():
                 send_text_message(event.reply_token, help_message())
             elif event.message.text == "fsm":
                 img_url = domain_url +"show-fsm/"
+                app.logger.info(img_url+event.reply_token)
                 send_image_url(event.reply_token, img_url)
             else:
                 print(f"\nFSM STATE: {machine.state}")
@@ -74,7 +75,6 @@ def root():
                 response = machine.advance(event)
                 if response == False:
                     send_text_message(event.reply_token, "Not Entering any State")
-    app.logger.info("hello world")
     return "OK"
 
 @app.route("/callback", methods=["POST"])
@@ -136,6 +136,7 @@ def webhook_handler():
 @app.route("/show-fsm/<user_id>", methods=["GET", "POST"])
 def show_fsm(user_id):
     path = os.getcwd()
+    app.logger.info(domain_url+"show-fsm/"+user_id)
     machine.get_graph().draw(path+"/fsm.png", prog="dot", format="png")
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])
