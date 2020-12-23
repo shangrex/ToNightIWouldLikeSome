@@ -1,4 +1,5 @@
 graphviz
 graphviz-dev
+python-pygraphviz
 libgraphviz-dev
 pkg-config
