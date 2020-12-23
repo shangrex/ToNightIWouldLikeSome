@@ -53,10 +53,15 @@ class TocMachine(GraphMachine):
         text = event.message.text 
         return text.lower() == "5"
 
+    def is_going_to_clear_text(self, event):
+        text = event.message.text 
+        return text.lower() == "6"
+
     def is_going_to_initial_from_save_text(self, event):
         print("Going to initial")
         file = open("text.txt", "a")
         file.write(event.message.text)
+        file.close()
         return True
 
     def is_going_to_initial_from_sticker(self, event):
@@ -190,7 +195,7 @@ class TocMachine(GraphMachine):
         file = open("text.txt", "r")
         word = file.read()
         reply_token = event.reply_token
-        send_text_message(reply_token, word)
+        send_text_message(reply_token, "load text:\n"+word)
         self.go_back()
 
     def on_exit_load_text(self):
@@ -228,3 +233,10 @@ class TocMachine(GraphMachine):
     def on_enter_sticker(self, event):
         reply_token = event.reply_token
         send_text_message(reply_token, "請輸入 package id 和 sticker id \n  ex. \n3 3")
+
+    def on_enter_clear_text(self, event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "Trigger clear text")
+        file = open("text.txt", "w")
+        file.close()
+        self.go_back()

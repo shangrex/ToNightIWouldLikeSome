@@ -3,7 +3,7 @@ class set_machine():
         pass
 
     def state(self):
-        return ["initial", "save_text", "load_text", "show_image", "dinner", "sticker"]
+        return ["initial", "save_text", "load_text", "show_image", "dinner", "sticker", "clear_text"]
     
     def transition(self):
         return [
@@ -55,7 +55,13 @@ class set_machine():
             "dest": "initial",
             "conditions": "is_going_to_initial_from_sticker",
         },
-        {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker"], "dest": "initial"},
+        {
+            "trigger": "advance",
+            "source": "initial",
+            "dest": "clear_text",
+            "conditions": "is_going_to_clear_text",
+        },
+        {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker", "clear_text"], "dest": "initial"},
         ]
     
     def initial(self):
@@ -68,5 +74,8 @@ class set_machine():
 
 
 def help_message():
-    text = ""
+    text = "The bot have 5 function \n\
+            1. save text \n\
+            2. load text \n\
+            3. show iamge"                  
     return text

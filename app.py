@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-
+from config import help_message
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message, send_image_url
 
 
 #test
@@ -31,6 +31,7 @@ app = Flask(__name__, static_url_path="")
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+domain_url = os.getenv("DOMAIN_URL", None)
 if channel_secret is None:
     print("Specify LINE_CHANNEL_SECRET as environment variable.")
     sys.exit(1)
@@ -51,7 +52,6 @@ def root():
     # parse webhook body
     try:
         events = parser.parse(body, signature)
-        app.logger.info("accept ", events)
     except InvalidSignatureError:
         abort(400)
 
@@ -63,11 +63,18 @@ def root():
                 continue
             if not isinstance(event.message.text, str):
                 continue
-            print(f"\nFSM STATE: {machine.state}")
-            print(f"REQUEST BODY: \n{body}")
-            response = machine.advance(event)
-            if response == False:
-                send_text_message(event.reply_token, "Not Entering any State")
+            if event.message.text == "help":
+                send_text_message(event.reply_token, help_message())
+            elif event.message.text == "fsm":
+                img_url = domain_url +"show-fsm/" +event.reply_token
+                send_image_url(event.reply_token, img_url)
+                pass
+            else:
+                print(f"\nFSM STATE: {machine.state}")
+                print(f"REQUEST BODY: \n{body}")
+                response = machine.advance(event)
+                if response == False:
+                    send_text_message(event.reply_token, "Not Entering any State")
     app.logger.info("hello world")
     return "OK"
 
@@ -94,7 +101,6 @@ def callback():
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
-
     return "OK"
 
 
@@ -128,13 +134,11 @@ def webhook_handler():
     return "OK"
 
 
-@app.route("/show-fsm", methods=["POST", "GET"])
-def show_fsm():
-    webhook = json.loads(request.data.decode("utf-8"))
-    #
-
+@app.route("/show-fsm/<user_id>", methods=["GET", "POST"])
+def show_fsm(user_id):
+    # webhook = json.loads(request.data.decode("utf-8"))
     # app.logger.info("show fsm")
-    # machine.get_graph().draw("fsm.png", prog="dot", format="png")
+    machine.get_graph().draw("fsm.png", prog="dot", format="png")
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])
     
