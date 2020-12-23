@@ -66,9 +66,8 @@ def root():
             if event.message.text == "help":
                 send_text_message(event.reply_token, help_message())
             elif event.message.text == "fsm":
-                img_url = domain_url +"show-fsm/" +event.reply_token
+                img_url = domain_url +"show-fsm/" +str(event.reply_token)
                 send_image_url(event.reply_token, img_url)
-                pass
             else:
                 print(f"\nFSM STATE: {machine.state}")
                 print(f"REQUEST BODY: \n{body}")

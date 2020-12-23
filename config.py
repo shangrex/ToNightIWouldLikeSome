@@ -77,5 +77,9 @@ def help_message():
     text = "The bot have 5 function \n\
             1. save text \n\
             2. load text \n\
-            3. show iamge"                  
+            3. show iamge \n\
+            4. google map \n\
+            5. sticker \n\
+            6. clear text\n"
+
     return text
