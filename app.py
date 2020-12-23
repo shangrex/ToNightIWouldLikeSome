@@ -140,7 +140,7 @@ def show_fsm(user_id):
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])
     
-    return send_file("fsm.png", mimetype="image/png")
+    return send_file(path+"/fsm.png", mimetype="image/png")
 
 
 if __name__ == "__main__":
