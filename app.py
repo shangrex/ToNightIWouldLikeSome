@@ -51,6 +51,7 @@ def root():
     # parse webhook body
     try:
         events = parser.parse(body, signature)
+        print("accept ", events)
     except InvalidSignatureError:
         abort(400)
 
