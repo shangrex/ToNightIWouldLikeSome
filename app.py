@@ -66,7 +66,7 @@ def root():
             if event.message.text == "help":
                 send_text_message(event.reply_token, help_message())
             elif event.message.text == "fsm":
-                img_url = domain_url +"show-fsm/" +str(event.reply_token)
+                img_url = domain_url +"show-fsm/"
                 send_image_url(event.reply_token, img_url)
             else:
                 print(f"\nFSM STATE: {machine.state}")
@@ -137,11 +137,11 @@ def webhook_handler():
 def show_fsm(user_id):
     # webhook = json.loads(request.data.decode("utf-8"))
     # app.logger.info("show fsm")
-    machine.get_graph().draw("fsm.svg", prog="dot", format="svg")
+    machine.get_graph().draw("fsm.png", prog="dot", format="png")
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])
     
-    return send_file("fsm.svg", mimetype="image/svg")
+    return send_file("fsm.png", mimetype="image/png")
 
 
 if __name__ == "__main__":
