@@ -137,11 +137,11 @@ def webhook_handler():
 def show_fsm(user_id):
     # webhook = json.loads(request.data.decode("utf-8"))
     # app.logger.info("show fsm")
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
+    machine.get_graph().draw("fsm.svg", prog="dot", format="svg")
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])
     
-    return send_file("fsm.png", mimetype="image/png")
+    return send_file("fsm.svg", mimetype="image/svg")
 
 
 if __name__ == "__main__":
