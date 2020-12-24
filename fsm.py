@@ -89,15 +89,15 @@ class TocMachine(GraphMachine):
         target_star = -1
         target_price = 0
         print(input_query)
-        if(len(input_query) > 0 and input_query[0] != ''):
+        if(len(input_query) > 0 and input_query[0] != ' '):
             target_place = input_query[0]
-        if(len(input_query) > 1 and input_query[1] != ''):
+        if(len(input_query) > 1 and input_query[1] != ' '):
             target_types = input_query[1]
-        if(len(input_query) > 2 and input_query[2] != ''):
+        if(len(input_query) > 2 and input_query[2] != ' '):
             target_radius = input_query[2]
-        if(len(input_query) > 3 and input_query[3] != ''):
+        if(len(input_query) > 3 and input_query[3] != ' '):
             target_star = input_query[3]
-        if(len(input_query) > 4 and input_query[3] != ''):
+        if(len(input_query) > 4 and input_query[3] != ' '):
             target_price = input_query[4]
 
         lat = 0
@@ -224,7 +224,7 @@ class TocMachine(GraphMachine):
     def on_enter_dinner(self, event):
         print("I'm entering dinner")
         reply_token = event.reply_token
-        send_text_message(reply_token, "請輸入地點以及最低星數(0~5), \n ex: \n 701台南市東區莊敬路136巷12號(default place) ""(default types) 1(default radius meters) -1(default star) 0(default max price)")
+        send_text_message(reply_token, "請輸入地點以及最低星數(0~5), \n ex: \n 701台南市東區莊敬路136巷12號(default place) \"\"(default types) 1(default radius meters) -1(default star) 0(default max price)")
 
 
     # def on_exit_dinner(self):
