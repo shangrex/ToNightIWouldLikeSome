@@ -347,6 +347,6 @@ class TocMachine(GraphMachine):
             plt.savefig("sentiment.png")
             plt.close()
         except Exception:
-            pass
+            self.go_back()
         file.close()
         self.go_back()
