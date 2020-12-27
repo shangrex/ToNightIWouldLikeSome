@@ -321,9 +321,11 @@ class TocMachine(GraphMachine):
             s = SnowNLP(sentence)
             print(sentence)
             sentiment_list.append(s.sentiments)
-        
-        plt.plot(range(len(sentiment_list)), sentiment_list)
-        plt.savefig("sentiment.png")
-        plt.close()
+        try:
+            plt.plot(range(len(sentiment_list)), sentiment_list)
+            plt.savefig("sentiment.png")
+            plt.close()
+        except Exception:
+            pass
         file.close()
         self.go_back()
