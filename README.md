@@ -1,7 +1,7 @@
 # Line bot之今晚我想來點
 
 ## FSM
-<img src="https://i.imgur.com/v0TGg07.png">
+<img src="https://i.imgur.com/dMBec8p.png">
 
 ## Usage
 	
@@ -107,6 +107,7 @@ can show the current fsm state
 ## Example
 
 今晚我想來點附近
+
 <img src="https://i.imgur.com/eooEM55.jpg" width=300>
 <img src="https://i.imgur.com/hQF2d3G.jpg" width=300>
 
