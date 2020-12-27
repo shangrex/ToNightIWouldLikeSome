@@ -4,6 +4,8 @@ from utils import send_text_message, send_sticker
 from utils import send_fsm_graph
 from flask import Flask, jsonify, request, abort, send_file
 from dotenv import load_dotenv
+from snownlp import SnowNLP
+import matplotlib.pyplot as plt
 import os
 import googlemaps
 import requests
@@ -57,10 +59,15 @@ class TocMachine(GraphMachine):
         text = event.message.text 
         return text.lower() == "6"
 
+    def is_going_to_sentiment(self, event):
+        text  = event.message.text
+        return text.lower() == "7"
+
+
     def is_going_to_initial_from_save_text(self, event):
         print("Going to initial")
         file = open("text.txt", "a")
-        file.write(event.message.text)
+        file.write(event.message.text+'\n')
         file.close()
         return True
 
@@ -85,7 +92,7 @@ class TocMachine(GraphMachine):
         input_query = input_query.split(' ')
         target_place = ""
         target_types = ""
-        target_radius = 1
+        target_radius = 100
         target_star = -1
         target_price = 0
         print(input_query)
@@ -196,6 +203,7 @@ class TocMachine(GraphMachine):
         word = file.read()
         reply_token = event.reply_token
         send_text_message(reply_token, "load text:\n"+word)
+        file.close()
         self.go_back()
 
     def on_exit_load_text(self):
@@ -238,5 +246,23 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "Trigger clear text")
         file = open("text.txt", "w")
+        file.close()
+        self.go_back()
+
+
+    def on_enter_sentiment(self, event):
+        send_text_message(event.reply_token, "calculate sentiment")
+        file = open("text.txt", "r")
+        text = file.read()
+        s = SnowNLP(text)
+        sentiment_list = []
+        for sentence in s.sentences:
+            s = SnowNLP(sentence)
+            print(sentence)
+            sentiment_list.append(s.sentiments)
+        
+        plt.plot(range(len(sentiment_list)), sentiment_list)
+        plt.savefig("sentiment.png")
+        plt.close()
         file.close()
         self.go_back()

@@ -1,3 +1,7 @@
-File "/app/.heroku/python/lib/python3.6/site-packages/pygraphviz/agraph.py", line 1387, in _run_prog
-2020-12-23T16:50:14.673300+00:00 app[web.1]: raise OSError(b"".join(errors).decode(self.encoding))
-2
+我好高興
+我好生氣
+天氣真好
+我真的開心
+我好開心
+我好憂鬱
+我好想死

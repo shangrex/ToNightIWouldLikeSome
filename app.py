@@ -69,6 +69,9 @@ def root():
                 img_url = domain_url +"show-fsm/"
                 app.logger.info(img_url+event.reply_token)
                 send_image_url(event.reply_token, img_url)
+            elif event.message.text == "sen":
+                img_url = domain_url+"show-sen/"
+                send_image_url(event.reply_token, img_url)
             else:
                 print(f"\nFSM STATE: {machine.state}")
                 print(f"REQUEST BODY: \n{body}")
@@ -131,12 +134,15 @@ def webhook_handler():
             send_text_message(event.reply_token, "Not Entering any State")
 
     return "OK"
-
-
-@app.route("/show-fsm/<user_id>", methods=["GET", "POST"])
-def show_fsm(user_id):
+@app.route("/show-sen/<reply_token>")
+def show_sen(reply_token):
     path = os.getcwd()
-    app.logger.info(domain_url+"show-fsm/"+user_id)
+    return send_file(path+"/sentiment.png", mimetype="image/png")
+
+@app.route("/show-fsm/<reply_token>", methods=["GET", "POST"])
+def show_fsm(reply_token):
+    path = os.getcwd()
+    app.logger.info(domain_url+"show-fsm/"+reply_token)
     machine.get_graph().draw(path+"/fsm.png", prog="circo", format="png")
     # print(webhook["events"][0]["replyToken"])
     # send_fsm_graph(webhook["events"][0]["replyToken"])

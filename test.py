@@ -5,17 +5,27 @@ import json
 import os
 from dotenv import load_dotenv
 import time
+from snownlp import SnowNLP
 load_dotenv()
+
+text = "你今天過得好嗎"
+s = SnowNLP(text)
+print(s.sentiments)
 
 google_key = os.getenv("GOOGLE_KEY", None)
 gmaps = googlemaps.Client(key=google_key)
 
-x = "123"
-y = x
-y += "11"
-print(x)
-# # g = gmaps.geolocate()
-# # print(g)
+# x = gmaps.find_place(input_type="textquery",input='喝吧茶飲Drink Brapp-手作輕食-特調')
+# y = x['candidates'][0]['place_id']
+# z = gmaps.place(y)
+# for i in z['result']:
+#     print(i)
+
+# r = gmaps.places('喝吧茶飲Drink Brapp-手作輕食-特調')
+# print(r)
+
+# g = gmaps.geolocate()
+# print(g)
 
 # #kaushiang
 # # client = IpregistryClient("tryout")  
@@ -37,10 +47,10 @@ print(x)
 # # print(latitude)
 # # print(longitude)
 
-# # Geocoding an address
-# # x = gmaps.places_autocomplete('701台南市東區大學路1號')
-# # print(x)
-# geocode_result = gmaps.geocode('701台南市東區莊敬路136巷12號')
+# Geocoding an address
+# x = gmaps.places_autocomplete('701台南市東區大學路1號')
+# print(x)
+geocode_result = gmaps.geocode('喝吧茶飲Drink Brapp-手作輕食-特調')
 
 # # count = 0
 # # for i in geocode_result[0]:
@@ -48,8 +58,11 @@ print(x)
 # #     print(i)
 # #     count += 1
 
-# lat = geocode_result[0]['geometry']['location']['lat']
-# lng = geocode_result[0]['geometry']['location']['lng']
+lat = geocode_result[0]['geometry']['location']['lat']
+lng = geocode_result[0]['geometry']['location']['lng']
+# print(lat, lng)
+print(geocode_result)
+# print(geocode_result)
 # # Look up an address with reverse geocoding
 # # reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
 # # print(reverse_geocode_result)

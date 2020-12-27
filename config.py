@@ -3,7 +3,7 @@ class set_machine():
         pass
 
     def state(self):
-        return ["initial", "save_text", "load_text", "show_image", "dinner", "sticker", "clear_text"]
+        return ["initial", "save_text", "load_text", "show_image", "dinner", "sticker", "clear_text", "sentiment"]
     
     def transition(self):
         return [
@@ -61,7 +61,13 @@ class set_machine():
             "dest": "clear_text",
             "conditions": "is_going_to_clear_text",
         },
-        {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker", "clear_text"], "dest": "initial"},
+        {
+            "trigger": "advance",
+            "source": "initial",
+            "dest": "sentiment",
+            "conditions": "is_going_to_sentiment",
+        },
+        {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker", "clear_text", "sentiment"], "dest": "initial"},
         ]
     
     def initial(self):
