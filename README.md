@@ -5,17 +5,21 @@
 
 ## Usage
 	
-help
+### help
 
 help can give the introduction
 
-fsm 
+### fsm 
 
 can show the current fsm state
 
-sen
+### sen
 
 can show the sentiment calculate result
+
+### 1-8
+
+use feature 
 
 ## Feature
 1. save text
@@ -97,7 +101,7 @@ can show the sentiment calculate result
 	result:
 
 		```search basic information ```
-		
+
 	find place to get address, price, star, website and so on
 
 ## How to setup
