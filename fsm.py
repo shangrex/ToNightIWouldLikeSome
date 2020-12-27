@@ -340,6 +340,7 @@ class TocMachine(GraphMachine):
         if text == "":
             file.close()
             self.go_back()
+
             
         s = SnowNLP(text)
         sentiment_list = []
