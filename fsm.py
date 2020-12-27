@@ -301,7 +301,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_sticker(self, event):
         reply_token = event.reply_token
-        send_text_message(reply_token, "請輸入 package id 和 sticker id \n  ex. \n3 3")
+        send_text_message(reply_token, "請輸入 package id 和 sticker id \n  ex. \n1 100")
 
     def on_enter_clear_text(self, event):
         reply_token = event.reply_token
