@@ -106,9 +106,9 @@ can show the current fsm state
 
 ## Example
 今晚我想來點附近
-<img src="https://i.imgur.com/eooEM55.jpg" width=100>
-<img src="https://i.imgur.com/hQF2d3G.jpg" width=100>
+<img src="https://i.imgur.com/eooEM55.jpg" width=300>
+<img src="https://i.imgur.com/hQF2d3G.jpg" width=300>
 今晚我想來點
-<img src="https://i.imgur.com/tzWeUho.jpg" width=100>
-<img src="https://i.imgur.com/6W6K4Mg.jpg" width=100>
-<img src="https://i.imgur.com/fDV3VPF.jpg" width=100>
+<img src="https://i.imgur.com/tzWeUho.jpg" width=300>
+<img src="https://i.imgur.com/6W6K4Mg.jpg" width=300>
+<img src="https://i.imgur.com/fDV3VPF.jpg" width=300>
