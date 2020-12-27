@@ -7,19 +7,19 @@
 	
 ### help
 
-help can give the introduction
+Give the instruction
 
 ### fsm 
 
-can show the current fsm state
+Show the current fsm state
 
 ### sen
 
-can show the sentiment calculate result
+Show the sentiment calculate result
 
 ### 1-8
 
-use feature 
+Use feature 
 
 ## Feature
 1. save text
@@ -51,21 +51,21 @@ use feature
 	
 	input:
 
-		```address/name```
+		address/name
 
 	result:
 
 		target is
 
-		```...```
+		...
 
 	input:
 
-		```target number```
+		target number
 
 	result:
 
-		```target name```
+		target name
 
 
 	show the place nearby 
@@ -79,30 +79,31 @@ use feature
 	specify the price range
 	
 	the target range is -1 - 9
+
 5. show sticker
 
-	can input two arguments, package id and sticker id
+	Input two arguments, package id and sticker id
 
-	can play with the sticker
+	Play with the sticker
 
 6. clear text
 
-	can clear the saved text
+	Clear the saved text
 
 7. sentiment calculate
 
-	can anaylyze the save text sentiment
+	Anaylyze the save text sentiment
 
 8. find place
 	input:
 
-		```target name```
+		target name
 
 	result:
 
-		```search basic information ```
+		search basic information
 
-	find place to get address, price, star, website and so on
+	Find place to get address, price, star, website and so on
 
 ## How to setup
 1. pipenv install 
