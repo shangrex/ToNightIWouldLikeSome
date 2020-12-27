@@ -358,4 +358,5 @@ class TocMachine(GraphMachine):
             plt.close()
         except MachineError:
             self.go_back()
+        file.close()
         self.go_back()
