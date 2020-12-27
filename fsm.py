@@ -10,6 +10,7 @@ import os
 import googlemaps
 import requests
 import json
+import re
 import time
 load_dotenv()
 
@@ -145,7 +146,25 @@ class TocMachine(GraphMachine):
 
         return True
 
-    def is_going_to_initial_from_find_place_nearby(self, event):
+    def is_going_to_initial_from_select_place(self, event):
+        select_num = event.message.text
+        reply_token = event.reply_token
+        result = re.match("^-?[0-9]*$", select_num)
+        if result == None:
+            send_text_message(reply_token, "Please input Number")
+            return False
+        if select_num == "-1":
+            return True
+        if(int(select_num) > 10 or int(select_num) < 0):
+            send_text_message(reply_token, "Please input right range")
+            return False
+
+        send_text_message(reply_token, self.target_name[int(select_num)])
+
+        
+        return False
+
+    def is_going_to_select_place(self, event):
         print("Going to initial")
         input_query = event.message.text 
         reply_token = event.reply_token
@@ -190,7 +209,6 @@ class TocMachine(GraphMachine):
                 target_place_list.append(place)
             else:
                 break
-        
         target_list = []
         for j in target_place_list:
             for i in j['results']:
@@ -229,11 +247,10 @@ class TocMachine(GraphMachine):
             
             text = "target is" + '\n'
             count = 0
+            self.target_name = []
             for i in target_list:
-                count += 1
-                if(count > 10):
-                    break
                 # text += "location " + str(i[0]['lat']) + " " + str(i[0]['lng']) + '\n' 
+                text += "target number"+ str(count) + '\n'
                 text += "Is open: " + str(i[1]) + '\n'
                 text += "Name: " + i[2] + '\n'
                 text += "Rating: " + str(i[3]) + '\n'
@@ -244,9 +261,13 @@ class TocMachine(GraphMachine):
                 text += "Types: " + t + '\n'
                 text += "Price level: " + str(i[6]) + '\n'
                 text += '\n'
+                self.target_name.append(i[2])
+                count += 1
+                if(count > 10):
+                    break
 
         print(text)
-        send_text_message(reply_token, text)
+        send_text_message(reply_token, text+"please select target number to check name or input -1 to quit")
         return True
 
     def on_enter_save_text(self, event):

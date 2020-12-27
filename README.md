@@ -49,7 +49,13 @@ can show the current fsm state
 		target is
 		...
 
-	
+	input:
+		target number
+
+	result:
+		target name
+
+		
 	show the place nearby 
 	 
 	 specify the tyes, including food , restaurant, political, finance, health and so on
@@ -110,6 +116,8 @@ can show the current fsm state
 
 <img src="https://i.imgur.com/eooEM55.jpg" width=300>
 <img src="https://i.imgur.com/hQF2d3G.jpg" width=300>
+
+檢查&複製名子
 
 今晚我想來點
 

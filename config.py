@@ -3,7 +3,7 @@ class set_machine():
         pass
 
     def state(self):
-        return ["initial", "save_text", "load_text", "show_image", "find_place_nearby", "sticker", "clear_text", "sentiment", "find_place"]
+        return ["initial", "save_text", "load_text", "show_image", "find_place_nearby", "sticker", "clear_text", "sentiment", "find_place", "select_place"]
     
     def transition(self):
         return [
@@ -40,8 +40,8 @@ class set_machine():
         {
             "trigger": "advance",
             "source": "find_place_nearby",
-            "dest": "initial",
-            "conditions": "is_going_to_initial_from_find_place_nearby",
+            "dest": "select_place",
+            "conditions": "is_going_to_select_place",
         },
         {
             "trigger": "advance",
@@ -79,6 +79,12 @@ class set_machine():
             "dest": "initial",
             "conditions": "is_going_to_initial_from_find_place",
         },
+        {
+            "trigger": "advance",
+            "source": "select_place",
+            "dest": "initial",
+            "conditions": "is_going_to_initial_from_select_place",
+        },
         {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker", "clear_text", "sentiment"], "dest": "initial"},
         ]
     
@@ -92,7 +98,7 @@ class set_machine():
 
 
 def help_message():
-    text = "The bot have 7 function \n\
+    text = "The bot have 8 function \n\
             1. save text \n\
             2. load text \n\
             3. show iamge \n\
