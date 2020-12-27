@@ -6,6 +6,7 @@ from flask import Flask, jsonify, request, abort, send_file
 from dotenv import load_dotenv
 from snownlp import SnowNLP
 import matplotlib.pyplot as plt
+from transitions.core import MachineError
 import os
 import googlemaps
 import requests
@@ -336,20 +337,24 @@ class TocMachine(GraphMachine):
         send_text_message(event.reply_token, "calculate sentiment")
         file = open("text.txt", "r")
         text = file.read()
+        if text == "":
+            file.close()
+            self.go_back()
+            
         s = SnowNLP(text)
         sentiment_list = []
         for sentence in s.sentences:
             s = SnowNLP(sentence)
             print(sentence)
             sentiment_list.append(s.sentiments)
-        
+        print(sentiment_list)
         if len(sentiment_list) < 1:
+            file.close()
             self.go_back()
         try:
             plt.plot(range(len(sentiment_list)), sentiment_list)
             plt.savefig("sentiment.png")
             plt.close()
-        except Exception:
+        except MachineError:
             self.go_back()
-        file.close()
         self.go_back()
