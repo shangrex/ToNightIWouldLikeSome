@@ -342,6 +342,9 @@ class TocMachine(GraphMachine):
             s = SnowNLP(sentence)
             print(sentence)
             sentiment_list.append(s.sentiments)
+        
+        if len(sentiment_list) < 1:
+            self.go_back()
         try:
             plt.plot(range(len(sentiment_list)), sentiment_list)
             plt.savefig("sentiment.png")

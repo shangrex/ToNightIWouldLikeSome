@@ -57,11 +57,11 @@ Use feature
 
 		target is
 
-		...
+		10 place nearby sorted by prominence
 
 	input:
 
-		target number
+		target number 0-10
 
 	result:
 
