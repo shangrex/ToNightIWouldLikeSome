@@ -1,7 +1,7 @@
 # Line bot之今晚我想來點
 
 ## FSM
-<img src="https://i.imgur.com/dMBec8p.png">
+<img src="https://i.imgur.com/Jd2ByA9.png">
 
 ## Usage
 	
@@ -13,6 +13,9 @@ fsm
 
 can show the current fsm state
 
+sen
+
+can show the sentiment calculate result
 
 ## Feature
 1. save text
@@ -43,19 +46,24 @@ can show the current fsm state
 
 	
 	input:
-		address/name
+
+		```address/name```
 
 	result:
+
 		target is
-		...
+
+		```...```
 
 	input:
-		target number
+
+		```target number```
 
 	result:
-		target name
 
-		
+		```target name```
+
+
 	show the place nearby 
 	 
 	 specify the tyes, including food , restaurant, political, finance, health and so on
@@ -65,7 +73,8 @@ can show the current fsm state
 	specify the star 
 
 	specify the price range
-	 
+	
+	the target range is -1 - 9
 5. show sticker
 
 	can input two arguments, package id and sticker id
@@ -81,7 +90,14 @@ can show the current fsm state
 	can anaylyze the save text sentiment
 
 8. find place
+	input:
 
+		```target name```
+
+	result:
+
+		```search basic information ```
+		
 	find place to get address, price, star, website and so on
 
 ## How to setup
@@ -118,6 +134,7 @@ can show the current fsm state
 <img src="https://i.imgur.com/hQF2d3G.jpg" width=300>
 
 檢查&複製名子
+<img src="https://i.imgur.com/37O7eJm.jpg" width=300>
 
 今晚我想來點
 
