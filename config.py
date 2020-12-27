@@ -102,6 +102,7 @@ def help_message():
             7. sentiment\n\
             8. find place\n\
             help\n\
-            fsm\n"
+            fsm\n\
+            sen"
 
     return text
