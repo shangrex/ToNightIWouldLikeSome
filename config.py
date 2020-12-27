@@ -3,7 +3,7 @@ class set_machine():
         pass
 
     def state(self):
-        return ["initial", "save_text", "load_text", "show_image", "dinner", "sticker", "clear_text", "sentiment"]
+        return ["initial", "save_text", "load_text", "show_image", "find_place_nearby", "sticker", "clear_text", "sentiment", "find_place"]
     
     def transition(self):
         return [
@@ -28,8 +28,8 @@ class set_machine():
         {
             "trigger": "advance",
             "source": "initial",
-            "dest": "dinner",
-            "conditions": "is_going_to_dinner",
+            "dest": "find_place_nearby",
+            "conditions": "is_going_to_find_place_nearby",
         },
         {
             "trigger": "advance",
@@ -39,9 +39,9 @@ class set_machine():
         },
         {
             "trigger": "advance",
-            "source": "dinner",
+            "source": "find_place_nearby",
             "dest": "initial",
-            "conditions": "is_going_to_initial_from_dinner",
+            "conditions": "is_going_to_initial_from_find_place_nearby",
         },
         {
             "trigger": "advance",
@@ -67,6 +67,18 @@ class set_machine():
             "dest": "sentiment",
             "conditions": "is_going_to_sentiment",
         },
+        {
+            "trigger": "advance",
+            "source": "initial",
+            "dest": "find_place",
+            "conditions": "is_going_to_find_place",
+        },
+        {
+            "trigger": "advance",
+            "source": "find_place",
+            "dest": "initial",
+            "conditions": "is_going_to_initial_from_find_place",
+        },
         {"trigger": "go_back", "source": ["save_text", "load_text", "show_image", "sticker", "clear_text", "sentiment"], "dest": "initial"},
         ]
     
@@ -80,12 +92,15 @@ class set_machine():
 
 
 def help_message():
-    text = "The bot have 5 function \n\
+    text = "The bot have 7 function \n\
             1. save text \n\
             2. load text \n\
             3. show iamge \n\
             4. google map \n\
             5. sticker \n\
-            6. clear text\n"
+            6. clear text\n\
+            7. sentiment\
+            help\n\
+            fsm\n"
 
     return text

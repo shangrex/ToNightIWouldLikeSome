@@ -35,7 +35,7 @@ class TocMachine(GraphMachine):
                         auto_transitions=int_machine.auto_transitions(),
                         show_conditions=int_machine.show_conditions(),
                         )
-    def is_going_to_dinner(self, event):
+    def is_going_to_find_place_nearby(self, event):
         text = event.message.text
         return text.lower() == "4"
 
@@ -63,6 +63,9 @@ class TocMachine(GraphMachine):
         text  = event.message.text
         return text.lower() == "7"
 
+    def is_going_to_find_place(self, event):
+        text = event.message.text 
+        return text.lower() == "8"
 
     def is_going_to_initial_from_save_text(self, event):
         print("Going to initial")
@@ -84,7 +87,65 @@ class TocMachine(GraphMachine):
             send_text_message(event.reply_token, "no such sticker")
         return True
 
-    def is_going_to_initial_from_dinner(self, event):
+    def is_going_to_initial_from_find_place(self, event):
+        
+        input_query = event.message.text 
+        reply_token = event.reply_token  
+        text = "taget is\n"
+        try:
+            candidates = gmaps.find_place(input_type="textquery",input=input_query)
+            y = candidates['candidates'][0]['place_id']
+            place = gmaps.place(y)
+            name = ""
+            types = ""
+            address = ""
+            phone_number = ""
+            is_open = False
+            price = -1
+            rating = -1
+            num_rating = 0
+            website = ""
+            for i in place['result']:
+                feature = place['result'][i]
+                if i == "name":
+                    name = feature
+                if i == "types":
+                    types = feature
+                if i == "formatted_address":
+                    address = feature
+                if i == "formatted_phone_number":
+                    phone_number = feature
+                if i == "opening_hours":
+                    is_open = feature['open_now']
+                if i == "price_level":
+                    price = feature
+                if i == "rating":
+                    rating = feature
+                if i == "user_ratings_total":
+                    num_rating = feature
+                if i == "website":
+                    website = feature
+        except Exception:
+            pass
+
+        text += "Name: " + name + '\n'
+        text += "Is open: " + str(is_open) + '\n'
+        text += "Rating: " + str(rating) + '\n'
+        text += "Num rating: " + str(num_rating) + '\n'
+        t = ""
+        for k in types:
+            t += k + " "
+        text += "Types: " + t + '\n'
+        text += "Price level: " + str(price) + '\n'
+        text += "Phone Number: " + phone_number + '\n'
+        text += "Website: " + website + '\n'
+        text += "Address: \n" + address
+        text += '\n'
+        send_text_message(reply_token, text)
+
+        return True
+
+    def is_going_to_initial_from_find_place_nearby(self, event):
         print("Going to initial")
         input_query = event.message.text 
         reply_token = event.reply_token
@@ -229,8 +290,8 @@ class TocMachine(GraphMachine):
         return False
 
 
-    def on_enter_dinner(self, event):
-        print("I'm entering dinner")
+    def on_enter_find_place_nearby(self, event):
+        print("I'm entering find_place_nearby")
         reply_token = event.reply_token
         send_text_message(reply_token, "請輸入地點以及最低星數(0~5), \n ex: \n 701台南市東區莊敬路136巷12號(default place) \"\"(default types) 1(default radius meters) -1(default star) 0(default max price)")
 
