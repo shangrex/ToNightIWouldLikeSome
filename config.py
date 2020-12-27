@@ -96,10 +96,11 @@ def help_message():
             1. save text \n\
             2. load text \n\
             3. show iamge \n\
-            4. google map \n\
+            4. find place nearby \n\
             5. sticker \n\
             6. clear text\n\
-            7. sentiment\
+            7. sentiment\n\
+            8. find place\n\
             help\n\
             fsm\n"
 
