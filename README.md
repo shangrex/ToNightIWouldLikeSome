@@ -137,7 +137,8 @@ Use feature
 
 <img src="https://i.imgur.com/eooEM55.jpg" width=300>
 <img src="https://i.imgur.com/hQF2d3G.jpg" width=300>
-
+<img src="https://i.imgur.com/cgN0hdj.jpg" width=300>
+<img src="https://i.imgur.com/NMPIREU.jpg" width=300>
 
 檢查&複製名子
 
