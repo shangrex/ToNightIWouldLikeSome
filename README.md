@@ -1,4 +1,5 @@
 # Line bot之今晚我想來點
+The Tool use google API(feature 4) to help you find place, user can specify the place type, star, price, distance to get a list.And more detailed is in the feature 8. And also the tool can write, save and clear the text, and do sentimental analysis.
 
 ## FSM
 <img src="https://i.imgur.com/Jd2ByA9.png">
